@@ -7,10 +7,7 @@ import tensorflow as tf
 import numpy as np
 import cv2
 from tensorflow.keras.models import load_model #type: ignore
-import matplotlib.pyplot as plt
 from torchvision import transforms
-from PIL import Image
-import timm
 from flask_cors import CORS
 import logging
 import datetime
@@ -22,11 +19,7 @@ app = Flask(__name__, static_folder="static", template_folder="templates")
 CORS(app)
 
 # Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("app.log"), logging.StreamHandler()],
-)
+
 logger = logging.getLogger(__name__)
 
 # App configuration
@@ -412,7 +405,6 @@ def detect_deepfake():
 
         # Save file
         file.save(filepath)
-        logger.info(f"File saved to {filepath}")
 
         # Get detection mode
         thorough_mode = request.form.get("mode", "standard").lower() == "thorough"
